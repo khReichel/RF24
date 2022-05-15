@@ -53,7 +53,7 @@ public:
     static const int OUTPUT_HIGH = 1;
     static const int OUTPUT_LOW = 0;
 
-    GPIO();
+    GPIO() = default;
 
     /**
      * Similar to Arduino pinMode(pin,mode);
@@ -81,7 +81,7 @@ public:
     */
     static void write(int port, int value);
 
-    virtual ~GPIO();
+    ~GPIO() = default;
 
 private:
     /* fd cache */

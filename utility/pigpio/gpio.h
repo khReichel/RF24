@@ -82,4 +82,4 @@ private:
  * @endcond
  */
 /**@}*/
-#endif    /* H */
+#endif    /* RF24_GPIO_H */

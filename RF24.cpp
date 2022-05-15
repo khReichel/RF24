@@ -10,7 +10,7 @@
 #include "RF24_config.h"
 #include "RF24Enum.h"
 #include "RF24.h"
-#include <stdio.h>
+#include <cstdio>
 
 /****************************************************************************/
 

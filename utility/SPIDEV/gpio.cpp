@@ -11,7 +11,7 @@
  */
 
 #include "gpio.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
@@ -19,19 +19,11 @@
 
 std::map<int, GPIOfdCache_t> GPIO::cache;
 
-GPIO::GPIO()
-{
-}
-
-GPIO::~GPIO()
-{
-}
-
 void GPIO::open(int port, int DDR)
 {
     FILE* f;
     f = fopen("/sys/class/gpio/export", "w");
-    if (f == NULL) {
+    if (f == nullptr) {
         throw GPIOException("can't export GPIO pin .check access rights");
     }
     fprintf(f, "%d\n", port);
@@ -41,7 +33,7 @@ void GPIO::open(int port, int DDR)
     char file[128];
     sprintf(file, "/sys/class/gpio/gpio%d/direction", port);
 
-    while ((f = fopen(file, "w")) == NULL) { //Wait 10 seconds for the file to be accessible if not open on first attempt
+    while ((f = fopen(file, "w")) == nullptr) { //Wait 10 seconds for the file to be accessible if not open on first attempt
         sleep(1);
         counter++;
         if (counter > 10) {
@@ -86,7 +78,7 @@ void GPIO::close(int port)
     // Do unexport
     FILE* f;
     f = fopen("/sys/class/gpio/unexport", "w");
-    if (f != NULL) {
+    if (f != nullptr) {
         fprintf(f, "%d\n", port);
         fclose(f);
     }
@@ -149,7 +141,7 @@ void GPIO::write(int port, int value)
     if (lseek(fd, 0, SEEK_SET) != 0) {
         throw GPIOException("can't access to GPIO");
     }
-    int l = (value == 0) ? ::write(fd, "0\n", 2) : ::write(fd, "1\n", 2);
+    ssize_t l = (value == 0) ? ::write(fd, "0\n", 2) : ::write(fd, "1\n", 2);
     if (l != 2) {
         throw GPIOException("can't access to GPIO");
     }

@@ -13,9 +13,9 @@
 extern "C" {
 #endif
 
-#include <stdint.h>  // for uintXX_t types
-#include <stddef.h>
-#include <time.h>
+#include <cstdint>  // for uintXX_t types
+#include <cstddef>
+#include <ctime>
 #include <sys/time.h>
 
 void __msleep(int milisec);
